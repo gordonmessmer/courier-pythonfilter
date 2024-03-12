@@ -17,6 +17,7 @@
 # You should have received a copy of the GNU General Public License
 # along with pythonfilter.  If not, see <http://www.gnu.org/licenses/>.
 
+import os
 import unittest
 import courier.config
 
@@ -24,7 +25,7 @@ import courier.config
 class TestModuleConfig(unittest.TestCase):
 
     def testLoader(self):
-        courier.config._standard_config_paths = './configfiles/pythonfilter-modules.conf'
+        courier.config._standard_config_paths = f"{os.path.dirname(__file__)}/configfiles/pythonfilter-modules.conf"
         config = courier.config.getModuleConfig('test1')
         self.assertEqual(config['name1'], 'value1')
         self.assertEqual(config['name2'], 'value2')
@@ -58,7 +59,7 @@ class TestModuleConfig(unittest.TestCase):
 
 
     def testApply(self):
-        courier.config._standard_config_paths = './configfiles/pythonfilter-modules.conf'
+        courier.config._standard_config_paths = f"{os.path.dirname(__file__)}/configfiles/pythonfilter-modules.conf"
         config = {}
         courier.config.applyModuleConfig('test1', config)
         self.assertEqual(config['name1'], 'value1')
