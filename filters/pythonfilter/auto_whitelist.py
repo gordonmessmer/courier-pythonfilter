@@ -74,7 +74,7 @@ def check_whitelist(control_paths):
             correspondents = hashlib.md5(recipient.lower().encode())
             correspondents.update(sender.encode())
             cdigest = correspondents.hexdigest()
-            if not cdigest in _whitelist:
+            if cdigest not in _whitelist:
                 found_all = 0
                 break
     finally:

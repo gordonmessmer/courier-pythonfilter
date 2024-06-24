@@ -19,6 +19,7 @@
 import subprocess
 import courier.config
 
+
 def sendmail(from_addr, to_addrs, msg):
     """Send a message using Courier's sendmail application.
 
