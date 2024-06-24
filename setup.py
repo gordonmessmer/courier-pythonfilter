@@ -23,4 +23,4 @@ setup(name="courier-pythonfilter",
       package_dir={'pythonfilter': 'filters/pythonfilter'},
       data_files=[('/etc/', ['pythonfilter.conf',
                              'pythonfilter-modules.conf'])]
-     )
+      )

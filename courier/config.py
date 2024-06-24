@@ -279,7 +279,7 @@ def get_alias(address):
 def smtpaccess(ip):
     """ Return the courier smtpaccess value associated with the IP address."""
     # First break the IP address into parts, either IPv4 or IPv6
-    if '.' in  ip:
+    if '.' in ip:
         ipsep = '.'
     elif ':' in ip:
         ipsep = ':'
@@ -376,6 +376,8 @@ def get_block_val(ip):
 
 _standard_config_paths = ['/etc/pythonfilter-modules.conf',
                           '/usr/local/etc/pythonfilter-modules.conf']
+
+
 def get_module_config(module_name):
     """Return a dictionary of config values.
 

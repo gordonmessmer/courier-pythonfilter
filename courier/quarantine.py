@@ -51,7 +51,7 @@ def _get_db():
     lock = open(lockpath, 'w')
     fcntl.flock(lock, fcntl.LOCK_EX)
     dbm_file = dbm.open(dbmpath, 'c')
-    return(dbm_file, lock)
+    return (dbm_file, lock)
 
 
 def _close_db(dbm_file, lock):
@@ -72,8 +72,8 @@ def send_notice(message, address, sender=None):
     # Send the recipient a notice if notify_recipient isn't
     # available, or if it is present and a true value.
     rcpts = []
-    if('notify_recipient' not in config
-       or config['notify_recipient']):
+    if ('notify_recipient' not in config
+        or config['notify_recipient']):
         rcpts.append(address)
     if 'also_notify' in config and config['also_notify']:
         rcpts.append(config['also_notify'])
@@ -122,10 +122,10 @@ def quarantine(body_path, control_paths, explanation):
     # Prepare notice for recipients of quarantined message
     # Some sites would prefer that only admins release messages from the
     # quarantine.
-    if('user_release' in config
-       and config['user_release'] == 0
-       and 'also_notify' in config
-       and config['also_notify']):
+    if ('user_release' in config
+        and config['user_release'] == 0
+        and 'also_notify' in config
+        and config['also_notify']):
         release_addr = config['also_notify']
     else:
         release_addr = 'quarantine-%s-%s@%s' % (config['siteid'],
@@ -139,7 +139,7 @@ def quarantine(body_path, control_paths, explanation):
             qmessage = email.message_from_binary_file(body_file)
     except Exception as e:
         # TODO: Handle this error.
-        raise #InitError('Internal failure parsing message data file: %s' % str(e))
+        raise  # InitError('Internal failure parsing message data file: %s' % str(e))
     qmessage_sender = qmessage['from']
     qmessage_subject = qmessage['subject']
     message = """You received a message that was quarantined because:
@@ -188,9 +188,9 @@ def release(requested_id, address):
         send_failure_notice(requested_id, address)
         return
     for x in courier.control.get_control_data(quarantine_paths[1])['r']:
-        if(x[0] == address or
-           x[1] == address or
-           x[1] == '%s%s' % ('rfc822;', address)):
+        if (x[0] == address or
+            x[1] == address or
+            x[1] == '%s%s' % ('rfc822;', address)):
             courier.sendmail.sendmail('', address, open(quarantine_paths[0], 'rb').readlines())
             return
     # If no address matched, alert the user that the request was invalid.
@@ -218,6 +218,7 @@ def purge():
             del dbm_file[x]
     # Unlock the DB
     _close_db(dbm_file, lock)
+
 
 # Deprecated names preserved for compatibility with older releases
 sendNotice = send_notice

@@ -50,13 +50,12 @@ class TestModuleConfig(unittest.TestCase):
         self.assertEqual('name3' in config, False)
         self.assertEqual('name4' in config, False)
         self.assertEqual(type(config['atuple']), tuple)
-        self.assertEqual(config['atuple'], (1,2,3))
+        self.assertEqual(config['atuple'], (1, 2, 3))
         self.assertEqual(type(config['alist']), list)
-        self.assertEqual(config['alist'], [1,2,3])
+        self.assertEqual(config['alist'], [1, 2, 3])
         self.assertEqual(type(config['adict']), dict)
         self.assertEqual(config['adict']['dict1'], 'dictval1')
         self.assertEqual(config['adict']['dict2'], 'dictval2')
-
 
     def testApply(self):
         courier.config._standard_config_paths = f"{os.path.dirname(__file__)}/configfiles/pythonfilter-modules.conf"
@@ -87,9 +86,9 @@ class TestModuleConfig(unittest.TestCase):
         self.assertEqual('name3' in config, False)
         self.assertEqual('name4' in config, False)
         self.assertEqual(type(config['atuple']), tuple)
-        self.assertEqual(config['atuple'], (1,2,3))
+        self.assertEqual(config['atuple'], (1, 2, 3))
         self.assertEqual(type(config['alist']), list)
-        self.assertEqual(config['alist'], [1,2,3])
+        self.assertEqual(config['alist'], [1, 2, 3])
         self.assertEqual(type(config['adict']), dict)
         self.assertEqual(config['adict']['dict1'], 'dictval1')
         self.assertEqual(config['adict']['dict2'], 'dictval2')

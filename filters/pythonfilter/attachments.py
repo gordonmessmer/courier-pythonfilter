@@ -64,6 +64,7 @@ def check_archive(filename, part):
     os.rmdir(tmp_d)
     return found
 
+
 def do_filter(body_path, control_paths):
     try:
         with open(body_path, 'rb') as body_file:

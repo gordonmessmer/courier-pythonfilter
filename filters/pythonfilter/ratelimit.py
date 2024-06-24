@@ -38,6 +38,7 @@ senders_purge_interval = 60 * 60 * 12
 # individual address.
 limit_network = False
 
+
 def init_filter():
     courier.config.apply_module_config('ratelimit.py', globals())
 

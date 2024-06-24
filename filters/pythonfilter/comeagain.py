@@ -84,7 +84,7 @@ def do_filter(body_path, control_paths):
             correspondents = sender_md5.copy()
             correspondents.update(recipient.encode())
             cdigest = correspondents.hexdigest()
-            if not cdigest in _senders:
+            if cdigest not in _senders:
                 found_all = 0
             _senders[cdigest] = time.time()
     finally:

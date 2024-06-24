@@ -90,7 +90,7 @@ class TtlDbSQL:
                                          port=int(db_config['port']),
                                          database=db_config['db'])
         except:
-            raise OpenError('Failed to open %s SQL db, ' \
+            raise OpenError('Failed to open %s SQL db, '
                             'check settings in pythonfilter-modules.conf'
                             % (db_config['db']))
         try:
@@ -108,8 +108,8 @@ class TtlDbSQL:
         if params:
             if self.paramstyle == 'numeric':
                 exec_params = [x[1] for x in params]
-            elif(self.paramstyle == 'pyformat'
-                 or self.paramstyle == 'named'):
+            elif (self.paramstyle == 'pyformat'
+                  or self.paramstyle == 'named'):
                 exec_params = dict(params)
         try:
             c = self.db.cursor()
@@ -221,7 +221,7 @@ class TtlDbMySQL(TtlDbPsycopg2):
                                          port=int(db_config['port']),
                                          db=db_config['db'])
         except:
-            raise OpenError('Failed to open %s SQL db, ' \
+            raise OpenError('Failed to open %s SQL db, '
                             'check settings in pythonfilter-modules.conf'
                             % (db_config['db']))
         try:
@@ -246,7 +246,7 @@ class TtlDbDbm:
         try:
             self.db = dbm.open(dbm_dir + '/' + name, 'c')
         except:
-            raise OpenError('Failed to open %s db in %s, ' \
+            raise OpenError('Failed to open %s db in %s, '
                             'make sure that the directory exists\n'
                             % (name, dbm_dir))
         # The db will be scrubbed at the interval indicated in seconds.

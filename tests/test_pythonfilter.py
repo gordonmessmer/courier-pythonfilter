@@ -38,6 +38,7 @@ else:
     os.environ['PYTHONPATH'] = '%s:%s/filters' % (
         project_root, project_root)
 
+
 class TestPythonfilter(unittest.TestCase):
     def setUp(self):
         # create socket directory

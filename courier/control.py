@@ -129,7 +129,7 @@ def _get_recipients_from_file(control_path):
 
     """
     recipients = []
-    rbuf = ['', '', ''] # This list will contain the recipient data.
+    rbuf = ['', '', '']  # This list will contain the recipient data.
     with open(control_path, 'rb') as control_file:
         for control_line in control_file:
             control_key = control_line[:1]
@@ -256,7 +256,7 @@ def add_recipient_data(control_paths, recipient_data):
 def _mark_complete(control_path, recipient_index):
     """Mark a single recipient's delivery as completed."""
     with open(control_path, 'a') as control_file:
-        control_file.seek(0, 2) # Seek to the end of the file
+        control_file.seek(0, 2)  # Seek to the end of the file
         control_file.write('I%d R 250 Ok - Removed by courier.control.py\n' %
                            recipient_index)
         control_file.write('S%d %d\n' % (recipient_index, int(time.time())))
@@ -279,8 +279,8 @@ def del_recipient(control_paths, recipient):
     for control_path in control_paths:
         rcpts = _get_recipients_from_file(control_path)
         for rcpt in rcpts:
-            if(rcpt[1] is False # Delivery is not complete for this recipient
-               and rcpt[2][0] == recipient):
+            if (rcpt[1] is False  # Delivery is not complete for this recipient
+                and rcpt[2][0] == recipient):
                 _mark_complete(control_path, rcpt[0])
                 return
 
@@ -305,8 +305,8 @@ def del_recipient_data(control_paths, recipient_data):
     for cf in control_paths:
         rcpts = _get_recipients_from_file(cf)
         for x in rcpts:
-            if(x[1] is False # Delivery is not complete for this recipient
-               and x[2] == recipient_data):
+            if (x[1] is False  # Delivery is not complete for this recipient
+                and x[2] == recipient_data):
                 _mark_complete(cf, x[0])
                 return
 
@@ -326,6 +326,7 @@ def get_auth_user(control_paths, body_file=None):
     if auth_lines:
         return auth_lines[0]
     return None
+
 
 # Deprecated names preserved for compatibility with older releases
 getLines = get_lines

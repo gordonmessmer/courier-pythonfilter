@@ -44,8 +44,8 @@ def do_filter(body_path, control_paths):
         dparts = dheader.split('@')
         if len(dparts) != 2:
             return ''
-        if(courier.config.is_local(dparts[1]) or
-           courier.config.is_hosteddomain(dparts[1])):
+        if (courier.config.is_local(dparts[1]) or
+            courier.config.is_hosteddomain(dparts[1])):
             return '501 Mail loop - already have my Delivered-To: header.'
     return ''
 
