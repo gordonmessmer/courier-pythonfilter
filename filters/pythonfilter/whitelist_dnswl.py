@@ -19,6 +19,7 @@
 
 import sys
 import socket
+import ipaddress
 import courier.control
 import courier.config
 
@@ -45,22 +46,26 @@ def do_filter(body_path, control_paths):
     except:
         return '451 Internal failure locating control files'
 
-    if senders_ip and '.' in senders_ip:
-        # '.' must be in senders_ip until there are DNSWLs that support IPv6
-        octets = senders_ip.split('.')
-        octets.reverse()
-        octets_r = '.'.join(octets)
-        for zone in dnswl_zone:
-            lookup = '%s.%s' % (octets_r, zone)
-            try:
-                lookup_result = socket.gethostbyname(lookup)
-            except:
-                lookup_result = None
-            if lookup_result:
-                # For now, any result is good enough.
-                return '200 Ok'
+    try:
+        sender = ipaddress.ip_address(senders_ip)
+    except ValueError:
+        sys.stderr.write(f'whitelist_dnswl: unparsable senders_ip: {senders_ip}\n')
+        return ''
 
-    # Return no decision for everyone else.
+    # sender is either IPV4Address or IPV6Address object, 
+    reverse = sender.reverse_pointer.replace('.in-addr.arpa', '').replace('.ip6.arpa', '')
+
+    for zone in dnswl_zone:
+        lookup = '%s.%s' % (reverse, zone)
+        try:
+            lookup_result = socket.gethostbyname(lookup)
+        except:
+            lookup_result = None
+        if lookup_result:
+            # For now, any result is good enough.
+            return '200 Ok'
+
+    # Return no decision if reaching this
     return ''
 
 
