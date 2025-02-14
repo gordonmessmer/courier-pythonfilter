@@ -62,7 +62,11 @@ def do_filter(body_path, control_paths):
         except:
             lookup_result = None
         if lookup_result:
-            # For now, any result is good enough.
+            # special case for access blocked on dnswl.org
+            if lookup_result == '127.0.0.255':
+                # access blocked, no nonspam indicator
+                continue
+            # For now, any other result is good enough.
             return '200 Ok'
 
     # Return no decision if reaching this
