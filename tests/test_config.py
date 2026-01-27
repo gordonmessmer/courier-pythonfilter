@@ -26,20 +26,20 @@ import courier.config
 
 
 def makedbm(name, replace_commas=0, tmpdir="."):
-    newdbm = dbm.open(f'{tmpdir}/configfiles/{name}.dat', 'c')
-    file = open(f'{tmpdir}/configfiles/{name}')
-    line = file.readline()
-    while line:
-        parts = line.split(':', 1)
-        if len(parts) == 1:
-            key = parts[0].strip()
-            value = '1'
-        else:
-            key, value = [x.strip() for x in parts]
-        if replace_commas:
-            value = value.replace(',', '\n') + '\n'
-        newdbm[key] = value
+    with dbm.open(f'{tmpdir}/configfiles/{name}.dat', 'c') as newdbm:
+        file = open(f'{tmpdir}/configfiles/{name}')
         line = file.readline()
+        while line:
+            parts = line.split(':', 1)
+            if len(parts) == 1:
+                key = parts[0].strip()
+                value = '1'
+            else:
+                key, value = [x.strip() for x in parts]
+            if replace_commas:
+                value = value.replace(',', '\n') + '\n'
+            newdbm[key] = value
+            line = file.readline()
 
 
 class TestCourierConfig(unittest.TestCase):
