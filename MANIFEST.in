@@ -2,7 +2,7 @@ include tests/configfiles/*
 include tests/queuefiles/*
 include tests/*.py
 include courier/*.py
-include filters/*.py
+include filters/pythonfilter/*.py
 include pythonfilter
 include pythonfilter-quarantine
 include pythonfilter.conf
@@ -10,6 +10,5 @@ include pythonfilter-modules.conf
 include MANIFEST.in
 include COPYING
 include README
-include README.hacking
-include ChangeLog
+include README.developers
 include courier-pythonfilter.spec

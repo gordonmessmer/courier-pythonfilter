@@ -9,54 +9,59 @@ Version:   3.0
 Release:   1%{?dist}
 Summary:   Python filtering architecture for the Courier MTA.
 
-Group:     Development/Libraries
-License:   GPL
-Url:       http://www.dragonsdawn.net/~gordon/courier-pythonfilter/
+License:   GPL-3.0-or-later
+Url:       https://github.com/gordonmessmer/courier-pythonfilter/
 Source0:   %{name}-%{version}.tar.gz
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-BuildArchitectures: noarch
+
+BuildArch:      noarch
+BuildRequires:  python3-devel
+BuildRequires:  python3-pytest
 
 BuildRequires:  courier
 Requires:       courier
-BuildRequires:  python%{python3_pkgversion}-devel
-Requires:       python%{python3_pkgversion}
 
-%description
+%global _description %{expand:
 Pythonfilter provides a framework for writing message filters in
-Python, as well as a selection of common filters.
+Python, as well as a selection of common filters.}
 
+%description %_description
 
 %prep
-%setup -q
+%autosetup
+
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+mv $RPM_BUILD_ROOT%{python3_sitelib}/etc $RPM_BUILD_ROOT%{_sysconfdir}
+
+%pyproject_save_files -l pythonfilter courier
+
 mkdir -p $RPM_BUILD_ROOT%{_localstatedir}/lib/pythonfilter/quarantine
 
 mkdir -p ${RPM_BUILD_ROOT}%{courier_libexec}/filters
 ln -s %{_bindir}/pythonfilter ${RPM_BUILD_ROOT}%{courier_libexec}/filters
 
 
-%clean
-rm -rf $RPM_BUILD_ROOT
+%check
+# TODO: shorten socket_path = '%s/tests/spool/courier/allfilters/pythonfilter' % project_root in testfilter
+#pytest
 
 
-%files
-%defattr(-,root,root)
-%dir %{python3_sitelib}/pythonfilter
-%{python3_sitelib}/pythonfilter/*
-%dir %{python3_sitelib}/courier
-%{python3_sitelib}/courier/*
+%files -f %{pyproject_files}
+%doc README README.developers
 %if %{expect_egg_info}
   %{python3_sitelib}/courier_pythonfilter-*-info
 %endif
 %{_bindir}/*
 %config(noreplace) %{_sysconfdir}/*
 %attr(0700,%{courier_user},%{courier_group}) %dir %{_localstatedir}/lib/pythonfilter
-%dir %{_localstatedir}/lib/pythonfilter/quarantine
+%attr(0700,%{courier_user},%{courier_group}) %dir %{_localstatedir}/lib/pythonfilter/quarantine
 %{courier_libexec}/filters/pythonfilter
