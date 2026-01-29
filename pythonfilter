@@ -379,7 +379,7 @@ def close_socket(filter_socket_path, filter_socket):
 
 def wait_for_active_filters(active_filters):
     deadline = time.time() + 10
-    while(active_filters.count > 0 and time.time() < deadline):
+    while (active_filters.count > 0 and time.time() < deadline):
         # Wait for them all to finish
         time.sleep(0.1)
 
