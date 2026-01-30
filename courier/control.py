@@ -280,7 +280,7 @@ def del_recipient(control_paths, recipient):
         rcpts = _get_recipients_from_file(control_path)
         for rcpt in rcpts:
             if (rcpt[1] is False  # Delivery is not complete for this recipient
-                and rcpt[2][0] == recipient):
+                    and rcpt[2][0] == recipient):
                 _mark_complete(control_path, rcpt[0])
                 return
 
@@ -306,7 +306,7 @@ def del_recipient_data(control_paths, recipient_data):
         rcpts = _get_recipients_from_file(cf)
         for x in rcpts:
             if (x[1] is False  # Delivery is not complete for this recipient
-                and x[2] == recipient_data):
+                    and x[2] == recipient_data):
                 _mark_complete(cf, x[0])
                 return
 

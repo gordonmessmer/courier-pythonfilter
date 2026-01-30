@@ -53,7 +53,7 @@ def do_filter(body_path, control_paths):
     if sender_info is None:
         return '517 Sender does not exist: %s' % sender
     if (require_auth and
-        courier.control.get_auth_user(control_paths, body_path) is None):
+            courier.control.get_auth_user(control_paths, body_path) is None):
         return '517 Policy requires local senders to authenticate.'
     return ''
 
