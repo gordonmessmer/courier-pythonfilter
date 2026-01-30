@@ -137,7 +137,7 @@ def quarantine(body_path, control_paths, explanation):
     try:
         with open(body_path, 'rb') as body_file:
             qmessage = email.message_from_binary_file(body_file)
-    except Exception as e:
+    except Exception:
         # TODO: Handle this error.
         raise  # InitError('Internal failure parsing message data file: %s' % str(e))
     qmessage_sender = qmessage['from']
