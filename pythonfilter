@@ -344,8 +344,10 @@ def log_file_codes(module, reply_code, control_paths):
 
 
 def wait_for_message(filter_socket, filters, active_filters):
-    try: ready_files = select.select([sys.stdin, filter_socket], [], [])
-    except Exception: return True
+    try:
+        ready_files = select.select([sys.stdin, filter_socket], [], [])
+    except Exception:
+        return True
     # If stdin raised an event, it was closed and we need to exit.
     if sys.stdin in ready_files[0]:
         return False
@@ -377,7 +379,7 @@ def close_socket(filter_socket_path, filter_socket):
 
 def wait_for_active_filters(active_filters):
     deadline = time.time() + 10
-    while(active_filters.count > 0 and time.time() < deadline):
+    while (active_filters.count > 0 and time.time() < deadline):
         # Wait for them all to finish
         time.sleep(0.1)
 

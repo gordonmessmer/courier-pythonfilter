@@ -36,7 +36,6 @@ def usage():
     -s: Messages with the given envelope sender's address or DSNs to that address''' % quarantine)
 
 
-
 def drop(cf, df):
     qcf = os.path.join(quarantine, os.path.basename(cf))
     qdf = os.path.join(quarantine, os.path.basename(df))
@@ -97,6 +96,7 @@ def main():
             sender.append(a)
 
     search(auth, ip, sender)
+
 
 if __name__ == '__main__':
     main()

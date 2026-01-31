@@ -52,7 +52,7 @@ def do_filter(body_path, control_paths):
         sys.stderr.write(f'whitelist_dnswl: unparsable senders_ip: {senders_ip}\n')
         return ''
 
-    # sender is either IPV4Address or IPV6Address object, 
+    # sender is either IPV4Address or IPV6Address object
     reverse = sender.reverse_pointer.replace('.in-addr.arpa', '').replace('.ip6.arpa', '')
 
     for zone in dnswl_zone:

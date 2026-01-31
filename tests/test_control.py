@@ -18,16 +18,13 @@
 # along with pythonfilter.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
-import unittest
 import shutil
+import unittest
+
 import courier.config
-
-
-courier.config.sysconfdir = 'tmp/configfiles'
-
-
 import courier.control
 
+courier.config.sysconfdir = 'tmp/configfiles'
 
 message = {}
 message['xalias'] = {'control_paths': [f'{os.path.dirname(__file__)}/tmp/queuefiles/control-xalias'],
@@ -79,7 +76,7 @@ message['duplicate'] = {'control_paths': [f'{os.path.dirname(__file__)}/tmp/queu
                                                 'rfc822;postmaster@ascension.private.dragonsdawn.net',
                                                 '']]},
                         'senders_ip': '127.0.0.1'}
-message['ldapalias'] = {'control_paths':  [f'{os.path.dirname(__file__)}/tmp/queuefiles/control-ldapalias'],
+message['ldapalias'] = {'control_paths': [f'{os.path.dirname(__file__)}/tmp/queuefiles/control-ldapalias'],
                         'control_data': {'s': 'root@ascension.private.dragonsdawn.net',
                                          'f': 'dns; localhost (localhost [127.0.0.1])',
                                          'e': '',
