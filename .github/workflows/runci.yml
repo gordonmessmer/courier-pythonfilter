@@ -16,9 +16,13 @@ jobs:
         uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Install pytest
+      - name: Install test and linting tools
         run: |
-          pip install pytest
+          pip install pytest pycodestyle pyflakes
       - name: Run tests
         run: |
           pytest -v
+      - name: Check Codingstyle
+        run: |
+          pycodestyle --ignore=E501,E722,W503,W504 . dropmsg pythonfilter pythonfilter-quarantine
+          pyflakes . dropmsg pythonfilter pythonfilter-quarantine
