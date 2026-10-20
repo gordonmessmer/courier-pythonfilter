@@ -23,6 +23,7 @@ import subprocess
 import sys
 import courier.config
 import courier.xfilter
+from email.policy import EmailPolicy
 
 
 spamc_path = '/usr/bin/spamc'
@@ -83,7 +84,7 @@ def do_filter(body_path, control_paths):
         return "454 " + str(e)
 
     # Parse the output of spamc into an email.message object.
-    result = email.message_from_binary_file(spamc_proc.stdout)
+    result = email.message_from_binary_file(spamc_proc.stdout, policy=EmailPolicy(refold_source="none"))
     result_header = result['X-Spam-Status']
 
     reject_msg = check_reject_condition(spamc_proc.wait(), result_header)
