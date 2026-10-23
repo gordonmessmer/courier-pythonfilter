@@ -20,6 +20,7 @@
 import email
 import sys
 import courier.config
+from email.policy import EmailPolicy
 
 
 def init_filter():
@@ -36,7 +37,7 @@ def do_filter(body_path, control_paths):
     """
     try:
         with open(body_path, 'rb') as body_file:
-            message = email.message_from_binary_file(body_file)
+            message = email.message_from_binary_file(body_file, policy=EmailPolicy(refold_source="none"))
     except:
         return '451 Internal failure parsing message data file'
     if 'Delivered-To' in message:
