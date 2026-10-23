@@ -26,6 +26,7 @@ except ImportError:
     import email.generator
 import courier.control
 import courier.config
+from email.policy import EmailPolicy
 
 
 class XFilterError(Exception):
@@ -66,7 +67,7 @@ class XFilter:
     def __init__(self, filter_name, body_path, control_paths):
         try:
             with open(body_path, 'rb') as body_file:
-                self.message = email.message_from_binary_file(body_file)
+                self.message = email.message_from_binary_file(body_file, policy=EmailPolicy(refold_source="none"))
         except Exception as e:
             raise InitError('Internal failure parsing message data file: %s' % str(e))
         # Save the arguments

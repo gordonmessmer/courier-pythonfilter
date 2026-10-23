@@ -28,6 +28,7 @@ try:
     HAVE_LIBARCHIVE = True
 except ImportError:
     HAVE_LIBARCHIVE = False
+from email.policy import EmailPolicy
 
 
 blocked_pattern = re.compile(r'^.*\.(scr|exe|com|bat|pif|lnk|sys|mid|vb|js|ws|shs|ceo|cmd|cpl|hta|vbs)$', re.I)
@@ -68,7 +69,7 @@ def check_archive(filename, part):
 def do_filter(body_path, control_paths):
     try:
         with open(body_path, 'rb') as body_file:
-            msg = email.message_from_binary_file(body_file)
+            msg = email.message_from_binary_file(body_file, policy=EmailPolicy(refold_source="none"))
     except Exception as e:
         return "554 " + str(e)
 

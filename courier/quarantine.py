@@ -28,6 +28,7 @@ import courier.config
 import courier.control
 import courier.sendmail
 import courier.xfilter
+from email.policy import EmailPolicy
 
 
 # Defaults:
@@ -136,7 +137,7 @@ def quarantine(body_path, control_paths, explanation):
     # Parse the message for its sender and subject:
     try:
         with open(body_path, 'rb') as body_file:
-            qmessage = email.message_from_binary_file(body_file)
+            qmessage = email.message_from_binary_file(body_file, policy=EmailPolicy(refold_source="none"))
     except Exception:
         # TODO: Handle this error.
         raise  # InitError('Internal failure parsing message data file: %s' % str(e))
